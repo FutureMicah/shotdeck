@@ -4,6 +4,7 @@ import { LogOut, ShieldCheck } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { supabase } from "@/integrations/supabase/client";
 import { formatBytes, listScreenshots } from "@/lib/screenshots";
+import { getMyRole } from "@/lib/roles";
 
 export const Route = createFileRoute("/_authenticated/account")({
   head: () => ({
@@ -31,6 +32,7 @@ function AccountPage() {
     queryFn: async () => (await supabase.auth.getUser()).data.user,
   });
   const { data: shots } = useQuery({ queryKey: ["screenshots"], queryFn: listScreenshots });
+  const { data: role } = useQuery({ queryKey: ["my-role"], queryFn: getMyRole });
 
   const total = (shots ?? []).reduce((sum, s) => sum + (s.size_bytes ?? 0), 0);
 
@@ -46,7 +48,20 @@ function AccountPage() {
       <div className="max-w-2xl space-y-4">
         <div className="glass rounded-3xl border border-border/60 p-6">
           <p className="text-xs uppercase tracking-widest text-muted-foreground">Signed in as</p>
-          <p className="mt-2 text-lg font-semibold">{user?.email ?? "—"}</p>
+          <div className="mt-2 flex flex-wrap items-center gap-2">
+            <p className="text-lg font-semibold">{user?.email ?? "—"}</p>
+            {role ? (
+              <span
+                className={`rounded-full px-2.5 py-1 text-[11px] font-medium ${
+                  role === "admin"
+                    ? "bg-primary/20 text-primary"
+                    : "bg-white/10 text-muted-foreground"
+                }`}
+              >
+                {role === "admin" ? "Administrator" : "Member"}
+              </span>
+            ) : null}
+          </div>
           <div className="mt-6 grid grid-cols-2 gap-4">
             <Stat label="Screenshots" value={String(shots?.length ?? 0)} />
             <Stat label="Storage used" value={formatBytes(total)} />
