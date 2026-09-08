@@ -34,8 +34,9 @@ function UploadPage() {
   const [dragging, setDragging] = useState(false);
 
   const upload = useMutation({
-    mutationFn: async (files: FileList | File[]) => {
-      for (const file of Array.from(files)) {
+    mutationFn: async (files: File[]) => {
+      if (files.length === 0) throw new Error("No image was selected.");
+      for (const file of files) {
         if (!file.type.startsWith("image/")) throw new Error("Only image files can be uploaded.");
         await uploadScreenshot(file);
       }
@@ -55,7 +56,8 @@ function UploadPage() {
       toast.error("Please confirm the upload notice first.");
       return;
     }
-    upload.mutate(files);
+    // Copy: the live FileList is emptied when we reset the input.
+    upload.mutate(Array.from(files));
   }
 
   return (

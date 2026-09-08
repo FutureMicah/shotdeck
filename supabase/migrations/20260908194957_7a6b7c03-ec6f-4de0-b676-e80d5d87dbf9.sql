@@ -1,0 +1,1 @@
+DELETE FROM public.screenshots WHERE user_id = '575d1ad3-0a01-43e5-853c-d43dfb5446cf';
