@@ -97,6 +97,10 @@ function AuthPage() {
           Your screenshots stay private to your account — nobody else can view, download or delete
           them.
         </p>
+        <p className="mt-3 rounded-2xl bg-white/5 p-3 text-xs leading-relaxed text-muted-foreground">
+          There are no preset logins. The first account created here becomes the administrator;
+          every account after that is a regular member.
+        </p>
 
         {sent ? (
           <p className="mt-6 rounded-2xl bg-white/5 p-4 text-sm text-muted-foreground">
