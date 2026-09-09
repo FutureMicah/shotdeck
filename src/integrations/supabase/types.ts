@@ -14,6 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
+      ingestion_tokens: {
+        Row: {
+          created_at: string
+          expires_at: string | null
+          id: string
+          last_used_at: string | null
+          name: string
+          owner_id: string
+          revoked_at: string | null
+          token_hash: string
+          token_prefix: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          last_used_at?: string | null
+          name: string
+          owner_id: string
+          revoked_at?: string | null
+          token_hash: string
+          token_prefix: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          last_used_at?: string | null
+          name?: string
+          owner_id?: string
+          revoked_at?: string | null
+          token_hash?: string
+          token_prefix?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       screenshots: {
         Row: {
           created_at: string
