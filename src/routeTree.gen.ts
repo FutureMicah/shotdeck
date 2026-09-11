@@ -16,6 +16,7 @@ import { Route as AuthenticatedAccountRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedShotsRouteImport } from './routes/_authenticated/shots'
 import { Route as AuthenticatedUploadRouteImport } from './routes/_authenticated/upload'
 import { Route as ApiPublicIngestRouteImport } from './routes/api/public/ingest'
+import { Route as ApiPublicIntegrationsScreenshotUploadRouteImport } from './routes/api/public/integrations/screenshot-upload'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -51,6 +52,12 @@ const ApiPublicIngestRoute = ApiPublicIngestRouteImport.update({
   path: '/api/public/ingest',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicIntegrationsScreenshotUploadRoute =
+  ApiPublicIntegrationsScreenshotUploadRouteImport.update({
+    id: '/api/public/integrations/screenshot-upload',
+    path: '/api/public/integrations/screenshot-upload',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -59,6 +66,7 @@ export interface FileRoutesByFullPath {
   '/shots': typeof AuthenticatedShotsRoute
   '/upload': typeof AuthenticatedUploadRoute
   '/api/public/ingest': typeof ApiPublicIngestRoute
+  '/api/public/integrations/screenshot-upload': typeof ApiPublicIntegrationsScreenshotUploadRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -67,6 +75,7 @@ export interface FileRoutesByTo {
   '/shots': typeof AuthenticatedShotsRoute
   '/upload': typeof AuthenticatedUploadRoute
   '/api/public/ingest': typeof ApiPublicIngestRoute
+  '/api/public/integrations/screenshot-upload': typeof ApiPublicIntegrationsScreenshotUploadRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -77,13 +86,27 @@ export interface FileRoutesById {
   '/_authenticated/shots': typeof AuthenticatedShotsRoute
   '/_authenticated/upload': typeof AuthenticatedUploadRoute
   '/api/public/ingest': typeof ApiPublicIngestRoute
+  '/api/public/integrations/screenshot-upload': typeof ApiPublicIntegrationsScreenshotUploadRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/auth' | '/account' | '/shots' | '/upload' | '/api/public/ingest'
+    | '/'
+    | '/auth'
+    | '/account'
+    | '/shots'
+    | '/upload'
+    | '/api/public/ingest'
+    | '/api/public/integrations/screenshot-upload'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/account' | '/shots' | '/upload' | '/api/public/ingest'
+  to:
+    | '/'
+    | '/auth'
+    | '/account'
+    | '/shots'
+    | '/upload'
+    | '/api/public/ingest'
+    | '/api/public/integrations/screenshot-upload'
   id:
     | '__root__'
     | '/'
@@ -93,6 +116,7 @@ export interface FileRouteTypes {
     | '/_authenticated/shots'
     | '/_authenticated/upload'
     | '/api/public/ingest'
+    | '/api/public/integrations/screenshot-upload'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -100,6 +124,7 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   ApiPublicIngestRoute: typeof ApiPublicIngestRoute
+  ApiPublicIntegrationsScreenshotUploadRoute: typeof ApiPublicIntegrationsScreenshotUploadRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -153,6 +178,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicIngestRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/integrations/screenshot-upload': {
+      id: '/api/public/integrations/screenshot-upload'
+      path: '/api/public/integrations/screenshot-upload'
+      fullPath: '/api/public/integrations/screenshot-upload'
+      preLoaderRoute: typeof ApiPublicIntegrationsScreenshotUploadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -176,6 +208,8 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   ApiPublicIngestRoute: ApiPublicIngestRoute,
+  ApiPublicIntegrationsScreenshotUploadRoute:
+    ApiPublicIntegrationsScreenshotUploadRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -143,6 +143,11 @@
   }
 }
 
+@utility dotted-field {
+  background-image: radial-gradient(color-mix(in oklab, white 8%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
 @utility glass {
   background-color: color-mix(in oklab, white 7%, transparent);
   backdrop-filter: blur(20px) saturate(140%);
