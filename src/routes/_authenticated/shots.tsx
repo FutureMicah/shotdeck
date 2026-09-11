@@ -74,7 +74,7 @@ function ShotsPage() {
       ) : shots.length === 0 ? (
         <EmptyState />
       ) : (
-        <div className="space-y-5 md:grid md:grid-cols-2 md:gap-5 md:space-y-0">
+        <div className="space-y-4 md:grid md:grid-cols-2 md:gap-5 md:space-y-0">
           {shots.map((shot) => (
             <ShotCard
               key={shot.id}
@@ -129,7 +129,7 @@ function ShotCard({
 }) {
   return (
     <article
-      className="group relative h-[28rem] overflow-hidden rounded-3xl border border-border/60 bg-white/5 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.9)]"
+      className="group relative h-[30rem] overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 shadow-[0_30px_80px_-40px_rgba(0,0,0,1)]"
       style={
         shot.url
           ? { backgroundImage: `url(${shot.url})`, backgroundSize: "cover", backgroundPosition: "top center" }
@@ -139,35 +139,43 @@ function ShotCard({
       <button
         onClick={onOpen}
         aria-label={`Open ${shot.title} full screen`}
-        className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/30"
+        className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-black/45"
       />
-      <div className="glass pointer-events-none absolute inset-x-3 bottom-3 rounded-2xl border border-white/15 p-4">
-        <div className="flex items-end justify-between gap-3">
-          <div className="min-w-0">
-            <h2 className="truncate text-sm font-semibold">{shot.title}</h2>
-            <p className="mt-1 text-[11px] text-muted-foreground">
-              {shot.width && shot.height ? `${shot.width}×${shot.height} · ` : ""}
-              {formatBytes(shot.size_bytes)} ·{" "}
-              {new Date(shot.created_at).toLocaleDateString(undefined, {
-                month: "short",
-                day: "numeric",
-              })}
-            </p>
-          </div>
-          <div className="pointer-events-auto flex gap-2">
+
+      <div className="pointer-events-none absolute inset-x-4 top-4 flex items-start justify-between gap-3">
+        <span className="glass rounded-full border border-white/20 px-3 py-1.5 text-[11px] font-medium">
+          {new Date(shot.created_at).toLocaleDateString(undefined, {
+            month: "short",
+            day: "numeric",
+          })}
+        </span>
+        <div className="pointer-events-auto flex gap-2">
+          <IconButton
+            label="Download"
+            onClick={() =>
+              downloadScreenshot(shot).catch(() => toast.error("Download failed. Try again."))
+            }
+          >
+            <Download className="size-4" />
+          </IconButton>
+          <IconButton label="Delete" destructive onClick={onDelete}>
+            <Trash2 className="size-4" />
+          </IconButton>
+        </div>
+      </div>
+
+      <div className="pointer-events-none absolute inset-x-5 bottom-5">
+        <h2 className="truncate text-[2rem] font-semibold leading-none tracking-[-0.04em] text-white drop-shadow-[0_6px_24px_rgba(0,0,0,0.8)]">
+          {shot.title}
+        </h2>
+        <div className="mt-3 flex items-center justify-between gap-3">
+          <p className="text-[11px] text-white/70">
+            {shot.width && shot.height ? `${shot.width}×${shot.height} · ` : ""}
+            {formatBytes(shot.size_bytes)}
+          </p>
+          <div className="pointer-events-auto">
             <IconButton label="Open full screen" onClick={onOpen}>
               <Maximize2 className="size-4" />
-            </IconButton>
-            <IconButton
-              label="Download"
-              onClick={() =>
-                downloadScreenshot(shot).catch(() => toast.error("Download failed. Try again."))
-              }
-            >
-              <Download className="size-4" />
-            </IconButton>
-            <IconButton label="Delete" destructive onClick={onDelete}>
-              <Trash2 className="size-4" />
             </IconButton>
           </div>
         </div>
