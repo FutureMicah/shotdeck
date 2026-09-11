@@ -76,6 +76,26 @@ function AccountPage() {
           </p>
         </div>
 
+        {role === "admin" ? (
+          <div className="glass rounded-3xl border border-border/60 p-6">
+            <h2 className="text-sm font-semibold">Send screenshots from a script</h2>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Your helper app can post PNG or JPG captures straight into this deck — no sign-in
+              needed. They arrive in your library like any other upload.
+            </p>
+            <pre className="mt-4 overflow-x-auto rounded-2xl bg-black/40 p-4 text-[11px] leading-relaxed text-muted-foreground">
+{`curl -X POST \\
+  ${typeof window !== "undefined" ? window.location.origin : "https://shotdeck.lovable.app"}/api/public/integrations/screenshot-upload \\
+  -F "file=@screenshot.png" \\
+  -F "title=Home screen"`}
+            </pre>
+            <p className="mt-3 text-xs text-muted-foreground">
+              Anyone who knows this address can add an image, so keep it private and remove
+              anything unexpected from your deck.
+            </p>
+          </div>
+        ) : null}
+
         <button
           onClick={signOut}
           className="glass flex w-full items-center justify-center gap-2 rounded-2xl border border-border/60 px-4 py-3.5 text-sm font-medium transition-colors hover:bg-white/10"
