@@ -1,14 +1,18 @@
-# Welcome to your Lovable project
+# Screenshot Sanctuary
+
+Build a working mobile-first screenshot review dashboard modeled on the attached dark glassmorphism reference: large vertically scrollable screenshot cards, each using its uploaded screenshot as background, fullscreen viewer, download and delete controls, bottom navigation, responsive desktop/mobile UI. Enable Lovable Cloud first for authenticated user accounts and secure per-user screenshot storage/data. Include authenticated uploads with clear consent-oriented wording, protect every screenshot action by ownership, and avoid hardcoded credentials or public upload endpoints. Seed an elegant empty state and use the reference image as design inspiration.
 
 This project was built with [Lovable](https://lovable.dev).
 
+**Live app**: https://shotdeck.lovable.app
+
 ## Build with Lovable
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/30a220a3-10ea-44f9-aa58-1c60b1d16ae4).
 
 - **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+- **Stay in sync**: every change made in Lovable is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
 
 ## Development
 
@@ -20,10 +24,3 @@ cd <repository-name>
 npm i
 npm run dev
 ```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
